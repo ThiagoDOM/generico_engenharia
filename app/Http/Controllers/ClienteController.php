@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateCliente;
 use App\Models\Cliente;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 class ClienteController extends Controller
 {
+    private function authid(){
+        return Auth::user()->id;
+    }
+
     public function index(){
-        $id = Auth::user()->id;
-        $clientes = Cliente::where('id_usuario', "{$id}")->paginate(10);
+        $clientes = Cliente::where('id_usuario', "{$this->authid()}")->paginate(10);
+        //$user = User::where('id', "{$id}")->first();
+        //$clientes = $user->clientes; 
         
         return view('admin.clientes.index', compact('clientes'));
     }
@@ -34,25 +40,28 @@ class ClienteController extends Controller
     public function show($id){
         
         if($cliente = Cliente::find($id)){
-            return view('admin.clientes.show', compact('cliente'));
-        } else {
-            return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
+            if($cliente->id_usuario == $this->authid())
+                return view('admin.clientes.show', compact('cliente'));
         } 
+        return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
     }
 
     public function destroy($id){
         if($cliente = Cliente::find($id)){
+            if($cliente->id_usuario == $this->authid()){
             $cliente->delete();
             return redirect()->route('clientes.index')->with('message','Cliente Deletado com sucesso');
+            }
         }  
         return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
     }
 
     public function edit($id){
         
-        if($cliente = Cliente::find($id))
-            return view('admin.clientes.edit', compact('cliente'));
-        
+        if($cliente = Cliente::find($id)){
+            if($cliente->id_usuario == $this->authid())
+                return view('admin.clientes.edit', compact('cliente'));
+        }
         return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
     }
 
@@ -60,8 +69,10 @@ class ClienteController extends Controller
 
         if($cliente = Cliente::find($id)){
             $data = $request->all();          
-            $cliente->update($data);
-            return redirect()->route('clientes.index')->with('message','Cliente Atualizado com sucesso');
+            if($cliente->id_usuario == $this->authid()){
+                $cliente->update($data);
+                return redirect()->route('clientes.index')->with('message','Cliente Atualizado com sucesso');
+            }
         }
         return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
     }

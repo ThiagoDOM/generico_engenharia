@@ -2,10 +2,22 @@
 
 namespace App\Models;
 
+use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Proposta extends Model
 {
     use HasFactory;
+
+    
+    protected $table = 'propostas';
+
+
+    protected $fillable = ['dt_proposta', 'nm_fantasia','vl_total','vl_sinal','qt_parcelas','vl_parcelas','dt_inicio_pgto','dt_parcelas','documento','status','id_cliente'];
+
+    public function cliente(){
+        
+        return $this->belongsTo(Cliente::class, 'id_cliente');
+    }
 }

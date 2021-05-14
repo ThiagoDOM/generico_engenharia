@@ -23,24 +23,17 @@ class StoreUpdateCliente extends FormRequest
      */
     public function rules()
     {
-        //$id = $this->segment(2);
-
-
         return [
-            //'title' => "required|min:3|max:160|unique:posts,title,{$id},id",
             'razao_social' => ['required','min:3','max:255'],
             'nm_fantasia' => ['required','min:3','max:255'],
-            'cnpj' => ['required', 'min:14','max:14'],
+            'cnpj' => ['required', 'digits:14', 'numeric'],
             'endereco' => ['required','min:3','max:1000'],
             'email' => ['required','min:3','max:255'],
             'telefone' => ['required', 'min:5','max:14'],
             'nm_responsavel' => ['required','min:3','max:255'],
-            'cpf' => ['required', 'min:11','max:11'],
+            'cpf' => ['required', 'digits:11', 'numeric'],
             'celular' => ['required', 'min:5','max:14'],
             'id_usuario'=> ['required']
-            //'nm_fantasia' => ['nullable','min:5','max:100'],
-            //'image' => 'required|mimes:pdf,docx,doc|max:4096'
-            //'image' => 'required|image'
         ];
     }
 }
