@@ -4,9 +4,14 @@ Sistema desenvolvido para oportunidade de emprego
 
 ## Instalação
 
-Após clonar o repositório, execute esse comando:
+Após clonar o repositório, execute esse comando:-
 ```
 composer install
+```
+
+Após criar o banco de dados, e configurar o .env execute:-
+```
+php artisan migrate
 ```
 
 - Crie o arquivo .env usando como base o aquivo .env.example. Ou adicione "FILESYSTEM_DRIVER=public" ao seu .env
