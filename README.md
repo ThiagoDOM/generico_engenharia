@@ -4,12 +4,12 @@ Sistema desenvolvido para oportunidade de emprego
 
 ## Instalação
 
-Execute esse comando
+Após clonas o repositório, execute esse comando:
 ```
 composer install
 ```
 
-- Crie o arquivo .env usando como base o aquivo .env.example
+- Crie o arquivo .env usando como base o aquivo .env.example. Ou adicione "FILESYSTEM_DRIVER=public" ao seu .env
 
 ## Screenshots
 
