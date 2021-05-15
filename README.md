@@ -2,12 +2,17 @@
 
 Sistema desenvolvido para oportunidade de emprego
 
-## Comandos
-- composer require laravel/breeze --dev
-- php artisan breeze:install
-- npm install -D tailwindcss
-- npm install
-- npm run dev
+## Instalação
 
-- php artisan storage:link
-- composer require maatwebsite/excel
+Execute esse comando
+```
+composer install
+```
+
+- Crie o arquivo .env usando como base o aquivo .env.example
+
+## Screenshots
+
+![](https://i.imgur.com/52poUei.png)
+
+![](https://i.imgur.com/UjSohEP.png)
