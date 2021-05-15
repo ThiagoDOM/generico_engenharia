@@ -56,5 +56,13 @@
     </tbody>
 </table>
 
+<div class="my-4">
+    @if (isset($filters))
+        {{ $clientes->appends($filters)->links() }}
+    @else
+        {{ $clientes->links() }}
+    @endif
+</div>
+
 </div>
 @endsection
