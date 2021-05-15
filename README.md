@@ -1,6 +1,6 @@
 ## Sobre o projeto
 
-Sistema desenvolvido para oportunidade de emprego
+Sistema desenvolvido utilizando Laravel para oportunidade de emprego
 
 ## Instalação
 
