@@ -1,7 +1,8 @@
 ## Sobre o projeto
 
+Sistema desenvolvido para oportunidade de emprego
 
-##comandos
+## Comandos
 composer require laravel/breeze --dev
 php artisan breeze:install
 npm install -D tailwindcss
