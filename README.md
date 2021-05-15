@@ -4,7 +4,7 @@ Sistema desenvolvido para oportunidade de emprego
 
 ## Instalação
 
-Após clonas o repositório, execute esse comando:
+Após clonar o repositório, execute esse comando:
 ```
 composer install
 ```
