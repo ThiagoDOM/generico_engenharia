@@ -13,8 +13,9 @@ class Proposta extends Model
     
     protected $table = 'propostas';
 
+    const CREATED_AT = 'dt_proposta';
 
-    protected $fillable = ['dt_proposta', 'nm_fantasia','vl_total','vl_sinal','qt_parcelas','vl_parcelas','dt_inicio_pgto','dt_parcelas','documento','status','id_cliente'];
+    protected $fillable = ['dt_proposta', 'endereco','servico','vl_total','vl_sinal','qt_parcelas','vl_parcelas','dt_inicio_pgto','dt_parcelas','documento','status','id_cliente'];
 
     public function cliente(){
         

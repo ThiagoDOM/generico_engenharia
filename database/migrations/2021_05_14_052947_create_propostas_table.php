@@ -17,6 +17,7 @@ class CreatePropostasTable extends Migration
             $table->id();
             $table->date('dt_proposta');
             $table->text('endereco');
+            $table->string('servico');
             $table->float('vl_total');
             $table->float('vl_sinal');
             $table->integer('qt_parcelas');

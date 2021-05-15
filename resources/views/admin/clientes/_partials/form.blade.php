@@ -23,7 +23,7 @@
 <input type="email" name="email" id="email" placeholder="E-mail" value="{{ $cliente->email ?? old('email') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required>
 
 <label for="telefone">Telefone</label>
-<input type="text" name="telefone" id="telefone" placeholder="Telefone" value="{{ $cliente->telefone ?? old('telefone') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required>
+<input type="text" name="telefone" id="telefone" placeholder="Telefone" maxlength="14" value="{{ $cliente->telefone ?? old('telefone') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required>
 
 <label for="nm_responsavel">Nome Responsável</label>
 <input type="text" name="nm_responsavel" id="nm_responsavel" placeholder="Nome Responsável" value="{{ $cliente->nm_responsavel ?? old('nm_responsavel') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required>
@@ -32,7 +32,7 @@
 <input type="text" name="cpf" id="cpf" placeholder="CPF" maxlength="11" value="{{ $cliente->cpf ?? old('cpf') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required>
 
 <label for="celular">Celular</label>
-<input type="text" name="celular" id="celular" placeholder="Celular" value="{{ $cliente->celular ?? old('celular') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required>
+<input type="text" name="celular" id="celular" placeholder="Celular" maxlength="14" value="{{ $cliente->celular ?? old('celular') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required>
 
 <input type="hidden" name="id_usuario" id="id_usuario" value={{ Auth::user()->id }}>
 

@@ -60,3 +60,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+##comandos
+composer require laravel/breeze --dev
+php artisan breeze:install
+npm install -D tailwindcss
+npm install
+npm run dev
+
+php artisan storage:link
+composer require maatwebsite/excel

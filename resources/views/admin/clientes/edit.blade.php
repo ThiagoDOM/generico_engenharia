@@ -6,7 +6,7 @@
     <h1 class="text-center text-3xl uppercase font-black my-4">Editar Cliente</h1>
 
     <div class="w-11/12 p-12 bg-white sm:w-8/12 md:w-1/2 lg:w-5/12 mx-auto">
-        <form action="{{ route('clientes.update', $cliente->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('clientes.update', $cliente->id) }}" method="post">
             @method('put')
             @include('admin.clientes._partials.form')
         </form>
