@@ -43,7 +43,9 @@ class ClienteController extends Controller
         if($cliente = Cliente::find($id)){
             //Verifico se o cliente pertence ao Usuario autenticado
             if($cliente->id_usuario == $this->authid())
-                $propostas = Proposta::where('id_cliente',"{$id}")->get();
+                //$propostas = Proposta::where('id_cliente',"{$id}")->get();
+               // $cliente = new Cliente;
+                $propostas = $cliente->propostas;
                 
                 return view('admin.clientes.show', compact('cliente','propostas'));
         } 

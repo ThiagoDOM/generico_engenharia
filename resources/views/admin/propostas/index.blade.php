@@ -49,6 +49,7 @@
     </thead>
     <tbody>
         @foreach ($propostas as $proposta)
+            
             <tr>
                 <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                     #{{ $proposta->id }}
@@ -68,6 +69,7 @@
                     <a href="{{ route('propostas.edit', $proposta->id) }}" class="px-5 py-2 border-green-500 border text-green-500 rounded transition duration-300 hover:bg-green-700 hover:text-white focus:outline-none">Edit</a>
                 </td>
             </tr>
+            
         @endforeach
             
     </tbody>
@@ -77,9 +79,12 @@
 
 <div class="my-4">
     @if (isset($filters))
+    
         {{ $propostas->appends($filters)->links() }}
     @else
+    
         {{ $propostas->links() }}
+        
     @endif
 </div>
 

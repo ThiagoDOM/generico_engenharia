@@ -29,15 +29,9 @@ class PropostaController extends Controller
 
     public function show($id){
         //Verificar se existe
-        if(Proposta::find($id)){
-            //Pego os dados da tabela Propostas através de um INNER JOIN para que o id do User seja validado.
-            $proposta = Cliente::join('propostas as prop', 'clientes.id','prop.id_cliente')->where('prop.id', "{$id}")->where('id_usuario', "{$this->authid()}")->get();
-            //Verifico se retornou algum resultado, guardo em um objeto simples e retorno
-            if(isset($proposta[0])){
-            $proposta = $proposta[0];
-            } else {
-                return redirect()->route('propostas.index')->with('alert','Proposta Não encontrada!');
-            }
+        if($proposta = Proposta::find($id)){
+            //Verifica se pertence ao usuario
+            $this->authorize('crudProposta', $proposta);
             return view('admin.propostas.show', compact('proposta'));
         } else {
             return redirect()->route('propostas.index')->with('alert','Proposta Não encontrada!');
@@ -45,8 +39,8 @@ class PropostaController extends Controller
     }
 
     public function create(){
-        //Pego os Clientes do usuario e retorno para fazer o input "select"
-        $clientes = Cliente::select('id','razao_social')->where('id_usuario', "{$this->authid()}")->get();
+        //Pego os Clientes do usuario e retorna para fazer o input "select"
+        $clientes = Auth::user()->clientes;
         return view('admin.propostas.create', compact('clientes'));
     }
 
@@ -68,8 +62,9 @@ class PropostaController extends Controller
     public function edit($id){
         //Verifica se existe
         if($proposta = Proposta::find($id)){
+            $this->authorize('crudProposta', $proposta);
             //Pego os clientes para fazer o input "select"
-            $clientes = Cliente::select('id','razao_social')->where('id_usuario', "{$this->authid()}")->get();
+            $clientes = Auth::user()->clientes;
             return view('admin.propostas.edit', compact('proposta','clientes'));
         }
         return redirect()->route('propostas.index')->with('alert','Proposta Não encontrada!');
@@ -79,11 +74,8 @@ class PropostaController extends Controller
         //Verifica se existe
         if($proposta = Proposta::find($id)){
             //Verifica se a proposta pertence ao usuario
-            $verifica = Cliente::join('propostas as prop', 'clientes.id','prop.id_cliente')->where('prop.id', "{$id}")->where('id_usuario', "{$this->authid()}")->get();
-            //Verifico se não retornou algum resultado
-            if(!isset($verifica[0])){
-                return redirect()->route('propostas.index')->with('alert','Proposta Não encontrada!');
-            }
+            $this->authorize('crudProposta', $proposta);
+
             $data = $request->all();
             //Verifica se tem documento, e se ele é válido
             if($request->documento && $request->documento->isValid()){
@@ -105,21 +97,18 @@ class PropostaController extends Controller
     public function destroy($id){
         //Verifica se existe
         if($proposta = Proposta::find($id)){
-            //Verifico se é pertencente ao usuario, se retornar 0 linhas, é inválido
-            $userid = Cliente::select('id_usuario')->join('propostas as prop', 'clientes.id','prop.id_cliente')->where('prop.id', "{$id}")->where('id_usuario', "{$this->authid()}")->get();
-            if(isset($userid[0])){
-                $userid = $userid[0]->id_usuario;
-            } else {
-                return redirect()->route('propostas.index')->with('alert','Proposta Não encontrada!');
-            }
+            //Verifico se é pertencente ao usuario
+            $this->authorize('crudProposta', $proposta);
+            
             //Se estiver tudo certo, exclui, primeiro o arquivo, depois da base de dados
-            if($userid == $this->authid()){
-                if(Storage::exists($proposta->documento)){
-                    Storage::delete($proposta->documento);
-                }
+            
+            if(Storage::exists($proposta->documento)){
+                Storage::delete($proposta->documento);
+            }
+
             $proposta->delete();
             return redirect()->route('propostas.index')->with('message','Proposta Deletada com sucesso');
-            }
+            
         }  
         return redirect()->route('propostas.index')->with('alert','Proposta Não encontrada!');
     }
@@ -155,6 +144,8 @@ class PropostaController extends Controller
         $id = $request->id_proposta;
         //Verifica se existe
         if($proposta = Proposta::find($id)){
+            //Verifica se pertence ao usuario
+            $this->authorize('crudProposta', $proposta);
             //Inverte o valor
             $proposta->status == 0 ? $proposta->status = 1 : $proposta->status = 0;
             //Salva na base de dados
