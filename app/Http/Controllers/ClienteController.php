@@ -42,9 +42,8 @@ class ClienteController extends Controller
         
         if($cliente = Cliente::find($id)){
             //Verifico se o cliente pertence ao Usuario autenticado
-            if($cliente->id_usuario == $this->authid())
-                //$propostas = Proposta::where('id_cliente',"{$id}")->get();
-               // $cliente = new Cliente;
+            
+            $this->authorize('crudCliente', $cliente);
                 $propostas = $cliente->propostas;
                 
                 return view('admin.clientes.show', compact('cliente','propostas'));
@@ -55,10 +54,10 @@ class ClienteController extends Controller
     public function destroy($id){
         if($cliente = Cliente::find($id)){
             //Verifico se o cliente pertence ao Usuario autenticado
-            if($cliente->id_usuario == $this->authid()){
+            $this->authorize('crudCliente', $cliente);
             $cliente->delete();
             return redirect()->route('clientes.index')->with('message','Cliente Deletado com sucesso');
-            }
+            
         }  
         return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
     }
@@ -67,8 +66,8 @@ class ClienteController extends Controller
         
         if($cliente = Cliente::find($id)){
             //Verifico se o cliente pertence ao Usuario autenticado
-            if($cliente->id_usuario == $this->authid())
-                return view('admin.clientes.edit', compact('cliente'));
+            $this->authorize('crudCliente', $cliente);
+            return view('admin.clientes.edit', compact('cliente'));
         }
         return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
     }
@@ -78,10 +77,10 @@ class ClienteController extends Controller
         if($cliente = Cliente::find($id)){
             $data = $request->all();          
             //Verifico se o cliente pertence ao Usuario autenticado
-            if($cliente->id_usuario == $this->authid()){
-                $cliente->update($data);
-                return redirect()->route('clientes.index')->with('message','Cliente Atualizado com sucesso');
-            }
+            $this->authorize('crudCliente', $cliente);
+            $cliente->update($data);
+            return redirect()->route('clientes.index')->with('message','Cliente Atualizado com sucesso');
+            
         }
         return redirect()->route('clientes.index')->with('alert','Cliente Não encontrado!');
     }

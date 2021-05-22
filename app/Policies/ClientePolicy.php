@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Proposta;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\Cliente;
 
-class PropostaPolicy
+class ClientePolicy
 {
     use HandlesAuthorization;
 
@@ -20,8 +20,7 @@ class PropostaPolicy
         //
     }
 
-    public function crudProposta(User $user, Proposta $proposta){
-        return $user->id == $proposta->cliente->id_usuario;
+    public function crudCliente(User $user, Cliente $cliente){
+        return $user->id == $cliente->id_usuario;
     }
-    
 }
